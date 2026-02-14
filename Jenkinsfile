@@ -45,7 +45,7 @@ pipeline {
 
         steps {
 
-                input message: "Please check if ok to proceed ? If yes then click-yes otherwise-no
+                input message: "Please check if ok to proceed ? Approve"
           
         }
       }

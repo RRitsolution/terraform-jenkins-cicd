@@ -3,6 +3,8 @@ pipeline {
   agent any 
      tools {
            terraform 'terraform'
+
+          ansible 'ansible'
      }
 
     environment {

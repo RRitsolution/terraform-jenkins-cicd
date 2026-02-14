@@ -60,6 +60,36 @@ pipeline {
                 '''
         }
       }
+
+       
+       stage('Terraform') {
+            steps {
+                
+                
+                // CATCH THE IP: Save the Terraform output to a local file
+                script {
+                    env.SERVER_IP = sh(script: "terraform output -raw vm_ip", returnStdout: true).trim()
+                }
+            }
+        }
+
+        stage('Ansible') {
+  steps {
+    withCredentials([sshUserPrivateKey(
+      credentialsId: 'PRIVATE_KEY',
+      keyFileVariable: 'SSH_KEY',
+      usernameVariable: 'SSH_USER'
+    )]) {
+      sh """
+        ansible -i ${env.SERVER_IP}, all \
+          -u $SSH_USER \
+          --private-key $SSH_KEY \
+          -m shell -a "sudo apt update -y"
+      """
+    }
+  }
+}
+      
     }
 
 }

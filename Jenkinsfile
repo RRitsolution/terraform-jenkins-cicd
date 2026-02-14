@@ -75,7 +75,7 @@ pipeline {
             }
         }
 
- stage('Ansible') {
+stage('Ansible') {
   steps {
     withCredentials([sshUserPrivateKey(
       credentialsId: 'PRIVATE_KEY',
@@ -83,14 +83,18 @@ pipeline {
       usernameVariable: 'SSH_USER'
     )]) {
       sh '''
-        ansible -i '"$SERVER_IP"', all \
+        echo "Using IP: $SERVER_IP"
+
+        ansible -i "$SERVER_IP," all \
           -u "$SSH_USER" \
           --private-key "$SSH_KEY" \
-          -m shell -a "sudo apt update -y"
+          -m shell \
+          -a "sudo apt update -y"
       '''
     }
   }
 }
+
       
     }
 

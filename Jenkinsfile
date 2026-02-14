@@ -21,6 +21,45 @@ pipeline {
                    '''
                }
              }
+
+      stage ('terraform fmt & validate'){
+
+        steps {
+          sh '''
+                  terraform fmt
+                  terraform validate
+          '''
+        }
+      }
+
+         stage ('Plan to see resources to be launched'){
+
+        steps {
+          sh '''
+                  terraform plan
+          '''
+        }
+      }
+
+       stage ('Manual Approval for Infra creation'){
+
+        steps {
+
+                input message: "Please check if ok to proceed ? If yes then click-yes otherwise-no
+          
+        }
+      }
+
+
+       stage ('Finally Infracture creation'){
+
+        steps {
+
+                sh '''
+                 terraform apply --auto-approve
+                '''
+        }
+      }
     }
 
 }

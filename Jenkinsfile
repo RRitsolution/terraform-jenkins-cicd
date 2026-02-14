@@ -4,7 +4,7 @@ pipeline {
      tools {
            terraform 'terraform'
 
-          ansible 'ansible'
+         
      }
 
     environment {

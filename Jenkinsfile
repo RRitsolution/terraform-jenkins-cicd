@@ -1,6 +1,6 @@
 pipeline {
 
-  agent any {
+  agent any 
      tools {
            terraform 'terraform'
      }
@@ -23,6 +23,6 @@ pipeline {
              }
     }
 
-  }
-
 }
+
+
